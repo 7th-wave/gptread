@@ -12,8 +12,8 @@ for (var i = 0; i < layers.length; i++) {
   // Iterate over each sublayer
   for (var j = 0; j < sublayers.length; j++) {
     // Get the symbol in the current sublayer
+    log("Layer: " + JSON.stringify(sublayers[j]));
     var symbol = sublayers[j].symbolItems[0].symbol;
-    console.log(symbol);
 
 
     // Get a random symbol from the document
@@ -27,4 +27,13 @@ for (var i = 0; i < layers.length; i++) {
     // Rename the sublayer to match the new symbol name
     sublayers[j].name = randomSymbol.name;
   }
+}
+
+
+// Function to log messages
+function log(message) {
+  var logFile = new File(Folder.desktop + "/script_r_log.txt");
+  logFile.open("a");
+  logFile.writeln(new Date().toLocaleString() + ": " + message);
+  logFile.close();
 }
