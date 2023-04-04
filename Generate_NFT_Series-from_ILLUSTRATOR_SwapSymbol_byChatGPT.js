@@ -74,7 +74,7 @@ var fileURL = new File();
 /*--------------------   - Main -  -------------------*/
 
 filterLayersThatStartWithPrefix();
-checkMaxCollectionSize();
+// checkMaxCollectionSize();
 showUserInfoWindow();
 try {fileURL.remove(); } catch(e) {};
 
@@ -161,34 +161,85 @@ function generateCollection() {
         saveImage();
     } catch (e) { alert(e); }
 
+    function swapRandomSymbolsInAllLayers(curLayer) {
+        var numSymbols = curLayer.symbolItems.length;
+        if (numSymbols < 2) {
+            alert("At least two symbol instances are needed in layer " + curLayer.name + " to perform a swap.");
+            return;
+        }
+    
+        // Select two random symbols to swap
+        var randomIndex1 = Math.floor(Math.random() * numSymbols);
+        var randomIndex2;
+        do {
+            randomIndex2 = Math.floor(Math.random() * numSymbols);
+        } while (randomIndex1 === randomIndex2);
+    
+        // Swap the selected symbols
+        swapSymbols(curLayer.symbolItems[randomIndex1], curLayer.symbolItems[randomIndex2]);
+    }
+    
+    function swapSymbols(symbolInstance1, symbolInstance2) {
+        var originalSymbol1 = symbolInstance1.symbol;
+        var originalSymbol2 = symbolInstance2.symbol;
+        var originalTransform1 = symbolInstance1.transform;
+        var originalTransform2 = symbolInstance2.transform;
+    
+        symbolInstance1.symbol = originalSymbol2;
+        symbolInstance2.symbol = originalSymbol1;
+    
+        symbolInstance1.transform = originalTransform1;
+        symbolInstance2.transform = originalTransform2;
+    }
 
+    function randomizeSymbols(curLayer) {
+        var numSymbols = curLayer.symbolItems.length;
+        if (numSymbols < 2) {
+            alert("At least two symbol instances are needed in layer " + curLayer.name + " to perform a swap.");
+            return;
+        }
+    
+        // Hide all symbol items
+        for (var i = 0; i < numSymbols; i++) {
+            curLayer.symbolItems[i].hidden = true;
+        }
+    
+        // Select a random symbol item and unhide it
+        var randomIndex = Math.floor(Math.random() * numSymbols);
+        curLayer.symbolItems[randomIndex].hidden = false;
+    
+        // Swap the first symbol item with the randomly selected symbol item
+        swapSymbols(curLayer.symbolItems[0], curLayer.symbolItems[randomIndex]);
+    }
+    
+    
 
 }
 
-function showTrait(curLayer, layerNum) {
+// function showTrait(curLayer, layerNum) {
 
-    hideAllSubLayers(curLayer);
+//     hideAllSubLayers(curLayer);
 
-    randomTrait = Math.round(Math.random(curLayer.layers.length) * (curLayer.layers.length - 1));
-    if(includeRaritiesBool)
-    {
-    var checker = checkBasedOnRarities(layerNum, randomTrait);
-    while (checker != randomTrait)
-    {
+//     randomTrait = Math.round(Math.random(curLayer.layers.length) * (curLayer.layers.length - 1));
+//     if(includeRaritiesBool)
+//     {
+//     var checker = checkBasedOnRarities(layerNum, randomTrait);
+//     while (checker != randomTrait)
+//     {
        
-        randomTrait=checker;
-        checker = checkBasedOnRarities(layerNum, randomTrait);
+//         randomTrait=checker;
+//         checker = checkBasedOnRarities(layerNum, randomTrait);
        
-    }
-    }
+//     }
+//     }
 
-    CreatedTraitsBasedOnRaritiesArray[layerNum][randomTrait]++;
+//     CreatedTraitsBasedOnRaritiesArray[layerNum][randomTrait]++;
 
-    curLayer.layers[randomTrait].visible = true;
+//     curLayer.layers[randomTrait].visible = true;
 
-    return randomTrait;
+//     return randomTrait;
 
-}
+// }
 function createMetaData (ImgPath) {
 
 
@@ -374,14 +425,14 @@ function showSelectSaveLocation() {
 
 
 
-function checkMaxCollectionSize()
-{
-    for (var i = 0; i < allChangingLayersList.length; i++) {
-        hideAllSubLayers(allChangingLayersList[i]);
-        MAX_POSSIBLE_COLLECTION_SIZE *= allChangingLayersList[i].layers.length;
-    }
+// function checkMaxCollectionSize()
+// {
+//     for (var i = 0; i < allChangingLayersList.length; i++) {
+//         hideAllSubLayers(allChangingLayersList[i]);
+//         MAX_POSSIBLE_COLLECTION_SIZE *= allChangingLayersList[i].layers.length;
+//     }
     
-}
+// }
 
 function calculateInitialRaritiesBasedOnCollectionSize(){
    
@@ -495,11 +546,11 @@ function removeFromCreatedTraits(chosenTraits) {
 
 }
 
-function hideAllSubLayers(curLayer) {
-    for (var i = 0; i < curLayer.layers.length; i++) {
-        curLayer.layers[i].visible = false;
-    }
-}
+// function hideAllSubLayers(curLayer) {
+//     for (var i = 0; i < curLayer.layers.length; i++) {
+//         curLayer.layers[i].visible = false;
+//     }
+// }
 
 function showUserInfoWindow() {
 
