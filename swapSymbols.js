@@ -3,11 +3,13 @@ var doc = app.activeDocument;
 
 // Get all layers in the document
 var layers = doc.layers;
+log("Star!");
 
 // Iterate over each layer in the document
 for (var i = 0; i < layers.length; i++) {
   // Get the sublayers in the current layer
   var sublayers = layers[i].layers;
+  log("Layer: " + JSON.stringify(sublayers));
 
   // Iterate over each sublayer
   for (var j = 0; j < sublayers.length; j++) {
