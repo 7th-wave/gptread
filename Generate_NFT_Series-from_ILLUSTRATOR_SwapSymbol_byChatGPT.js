@@ -74,7 +74,7 @@ var fileURL = new File();
 /*--------------------   - Main -  -------------------*/
 
 filterLayersThatStartWithPrefix();
-// checkMaxCollectionSize();
+checkMaxCollectionSize();
 showUserInfoWindow();
 try {fileURL.remove(); } catch(e) {};
 
@@ -216,30 +216,24 @@ function generateCollection() {
 
 }
 
-// function showTrait(curLayer, layerNum) {
+function showTrait(curLayer, layerNum) {
+    randomTrait = Math.round(Math.random(curLayer.symbolItems.length) * (curLayer.symbolItems.length - 1));
+    if (includeRaritiesBool) {
+        var checker = checkBasedOnRarities(layerNum, randomTrait);
+        while (checker != randomTrait) {
+            randomTrait = checker;
+            checker = checkBasedOnRarities(layerNum, randomTrait);
+        }
+    }
 
-//     hideAllSubLayers(curLayer);
+    CreatedTraitsBasedOnRaritiesArray[layerNum][randomTrait]++;
 
-//     randomTrait = Math.round(Math.random(curLayer.layers.length) * (curLayer.layers.length - 1));
-//     if(includeRaritiesBool)
-//     {
-//     var checker = checkBasedOnRarities(layerNum, randomTrait);
-//     while (checker != randomTrait)
-//     {
-       
-//         randomTrait=checker;
-//         checker = checkBasedOnRarities(layerNum, randomTrait);
-       
-//     }
-//     }
+    // Rename the subLayer based on the randomly chosen symbol
+    curLayer.layers[randomTrait].name = curLayer.symbolItems[randomTrait].symbol.name;
 
-//     CreatedTraitsBasedOnRaritiesArray[layerNum][randomTrait]++;
+    return randomTrait;
+}
 
-//     curLayer.layers[randomTrait].visible = true;
-
-//     return randomTrait;
-
-// }
 function createMetaData (ImgPath) {
 
 
@@ -425,14 +419,7 @@ function showSelectSaveLocation() {
 
 
 
-// function checkMaxCollectionSize()
-// {
-//     for (var i = 0; i < allChangingLayersList.length; i++) {
-//         hideAllSubLayers(allChangingLayersList[i]);
-//         MAX_POSSIBLE_COLLECTION_SIZE *= allChangingLayersList[i].layers.length;
-//     }
-    
-// }
+
 function checkMaxCollectionSize() {
     MAX_POSSIBLE_COLLECTION_SIZE = 1;
     for (var i = 0; i < allChangingLayersList.length; i++) {
