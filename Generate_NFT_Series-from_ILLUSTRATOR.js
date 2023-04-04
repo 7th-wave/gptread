@@ -18,7 +18,7 @@
   This script is provided "as is" without warranty of any kind.
   Free to use, Not for sale or distribution.
   
-  Copyright(c) 2022 AnimationGuides.com
+  
   
 */
 
