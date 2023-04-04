@@ -13,6 +13,8 @@ for (var i = 0; i < layers.length; i++) {
   for (var j = 0; j < sublayers.length; j++) {
     // Get the symbol in the current sublayer
     var symbol = sublayers[j].symbolItems[0].symbol;
+    console.log(symbol);
+
 
     // Get a random symbol from the document
     var symbols = doc.symbols;
@@ -26,6 +28,3 @@ for (var i = 0; i < layers.length; i++) {
     sublayers[j].name = randomSymbol.name;
   }
 }
-
-// Refresh the document
-doc.select(null);
