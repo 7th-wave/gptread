@@ -433,6 +433,18 @@ function showSelectSaveLocation() {
 //     }
     
 // }
+function checkMaxCollectionSize() {
+    MAX_POSSIBLE_COLLECTION_SIZE = 1;
+    for (var i = 0; i < allChangingLayersList.length; i++) {
+        var layerSymbolCount = allChangingLayersList[i].symbolItems.length;
+        MAX_POSSIBLE_COLLECTION_SIZE *= layerSymbolCount;
+    }
+}
+
+
+function factorial(n) {
+    return n ? n * factorial(n - 1) : 1;
+}
 
 function calculateInitialRaritiesBasedOnCollectionSize(){
    
