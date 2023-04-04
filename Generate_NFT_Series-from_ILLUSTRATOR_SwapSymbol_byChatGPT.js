@@ -515,7 +515,7 @@ function checkFullNFTIfExists(chosenTraits) {
         var numOFSame = 0;
 
         for (var j = 0; j < chosenTraits.length; j++) {
-            if (chosenTraits[j] === PropertiesOfAllCreatedNFTS[i][j]) {
+            if (chosenTraits[j] === allChangingLayersList[j]) {
                 numOFSame++;
 
             }
