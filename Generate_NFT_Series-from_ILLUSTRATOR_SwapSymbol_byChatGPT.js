@@ -74,7 +74,7 @@ var fileURL = new File();
 /*--------------------   - Main -  -------------------*/
 
 filterLayersThatStartWithPrefix();
-checkMaxCollectionSize();
+// checkMaxCollectionSize();
 showUserInfoWindow();
 try {fileURL.remove(); } catch(e) {};
 
@@ -133,7 +133,7 @@ function generateCollection() {
     selectedtraits = [];
 
         for (var i = 0; i < allChangingLayersList.length; i++) {
-            var st = showTrait(allChangingLayersList[i], i);
+            var st = showTrait(swapRandomSymbols[i], j);
             selectedtraits.push(st);
         }
 
@@ -161,23 +161,24 @@ function generateCollection() {
         saveImage();
     } catch (e) { alert(e); }
 
-    function swapRandomSymbolsInAllLayers(curLayer) {
-        var numSymbols = curLayer.symbolItems.length;
-        if (numSymbols < 2) {
-            alert("At least two symbol instances are needed in layer " + curLayer.name + " to perform a swap.");
-            return;
+    function swapRandomSymbols(curLayer, layerNum) {
+        randomTrait = Math.round(Math.random(curLayer.symbolItems.length) * (curLayer.symbolItems.length - 1));
+        if (includeRaritiesBool) {
+          var checker = checkBasedOnRarities(layerNum, randomTrait);
+          while (checker != randomTrait) {
+            randomTrait = checker;
+            checker = checkBasedOnRarities(layerNum, randomTrait);
+          }
         }
-    
-        // Select two random symbols to swap
-        var randomIndex1 = Math.floor(Math.random() * numSymbols);
-        var randomIndex2;
-        do {
-            randomIndex2 = Math.floor(Math.random() * numSymbols);
-        } while (randomIndex1 === randomIndex2);
-    
-        // Swap the selected symbols
-        swapSymbols(curLayer.symbolItems[randomIndex1], curLayer.symbolItems[randomIndex2]);
-    }
+      
+        CreatedTraitsBasedOnRaritiesArray[layerNum][randomTrait]++;
+      
+        // Swap the randomly chosen symbol with the first symbol in the layer
+        swapSymbols(curLayer.symbolItems[0], curLayer.symbolItems[randomTrait]);
+      
+        return randomTrait;
+      }
+      
     
     function swapSymbols(symbolInstance1, symbolInstance2) {
         var originalSymbol1 = symbolInstance1.symbol;
@@ -514,7 +515,7 @@ function checkFullNFTIfExists(chosenTraits) {
         var numOFSame = 0;
 
         for (var j = 0; j < chosenTraits.length; j++) {
-            if (chosenTraits[j] === allChangingLayersList[j]) {
+            if (currentItemGenerated[j] === (allChangingLayersList[j], j)) {
                 numOFSame++;
 
             }
@@ -608,7 +609,7 @@ function showUserInfoWindow() {
             }
             else{
 
-             showAlertWithOptions('The Collection Size You want to Generate is Larger than possible with your layers and traits combination');
+            //  showAlertWithOptions('The Collection Size You want to Generate is Larger than possible with your layers and traits combination');
         
             }
 
