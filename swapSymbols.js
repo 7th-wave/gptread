@@ -13,7 +13,6 @@ log("Layer Size: " + layers.length);
 for (var i = 0; i < layers.length; i++) {
   // Get the sublayers in the current layer
   var sublayers = layers[i].symbolItems;
-  log("Layer: " + layers[i].name + " Sublayer: " + sublayers.length);
 
   // Iterate over each sublayer
   for (var j = 0; j < sublayers.length; j++) {
