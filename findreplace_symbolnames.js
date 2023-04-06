@@ -2,7 +2,7 @@
 
   function cleanMapping() {
     var mapping = {
-      "tts_CherryBosoms-TotalRecalls-144_{RC:6.25,RS:8.33,RT:0.75}": "tts_CherryBosoms-TotalRecalls-144_",
+      "tts_CherryBosoms-TotalRecalls-144_{RC:6.25,RS:8.33,RT:0.75}":"tts_CherryBosoms-TotalRecalls-144_",
       "tts_WaterMelons-Oh Buoys-143_{RC:7.64,RS:8.33,RT:0.92}": "tts_WaterMelons-Oh Buoys-143_",
       "tts_StarBust-Shaggies-142_{RC:8.33,RS:6.94,RT:1.2}": "tts_StarBust-Shaggies-142_",
       "tts_PurpleHush-Hoots-141_{RC:6.94,RS:8.33,RT:0.83}": "tts_PurpleHush-Hoots-141_",
@@ -148,19 +148,211 @@
       "tts_CocoNaugthy-Trooper-1_{RC:8.33,RS:6.94,RT:1.2}": "tts_CocoNaugthy-Trooper-1_"
   
     };
+    
+
+    var newMapping  = {
+      '1': 'tts_CocoNaugthy-Trooper-1_RC-833_RS-694_RT-12_',
+      '2': 'tts_ChocoLattes-Oh Buoys-2_RC-069_RS-833_RT-008_',
+      '3': 'tts_CocoNaugthy-Artemis-3_RC-833_RS-125_RT-067_',
+      '4': 'tts_CocoNaugthy-TotalRecalls-4_RC-833_RS-833_RT-1_',
+      '5': 'tts_CocoNaugthy-Oh Buoys-5_RC-833_RS-833_RT-1_',
+      '6': 'tts_CocoNaugthy-Shaggies-6_RC-833_RS-694_RT-12_',
+      '7': 'tts_StarBust-Hoots-7_RC-833_RS-833_RT-1_',
+      '8': 'tts_BooBerries-Hoots-8_RC-764_RS-833_RT-092_',
+      '9': 'tts_ButterUdders-Oh Buoys-9_RC-833_RS-833_RT-1_',
+      '10': 'tts_CherryBosoms-Oh Buoys-10_RC-625_RS-833_RT-075_',
+      '11': 'tts_ChocoLattes-Spades-11_RC-694_RS-833_RT-083_',
+      '12': 'tts_CocoNaugthy-Buffies-12_RC-833_RS-625_RT-133_',
+      '13': 'tts_CocoNaugthy-Spades-13_RC-833_RS-833_RT-1_',
+      '14': 'tts_ButterUdders-Hypnotits-14_RC-833_RS-764_RT-109_',
+      '15': 'tts_CupCakes-Artemis-15_RC-833_RS-125_RT-067_',
+      '16': 'tts_PeCans-Oh Buoys-16_RC-694_RS-833_RT-083_',
+      '17': 'tts_CherryBosoms-Artemis-17_RC-069_RS-125_RT-006_',
+      '18': 'tts_ButterUdders-TotalRecalls-18_RC-833_RS-833_RT-1_',
+      '19': 'tts_ButterUdders-Perkies-19_RC-833_RS-1042_RT-08_',
+      '20': 'tts_CherryBosoms-Spades-20_RC-625_RS-833_RT-075_',
+      '21': 'tts_TataColadas-Oh Buoys-21_RC-764_RS-833_RT-092_',
+      '22': 'tts_PeCans-Hypnotits-22_RC-694_RS-764_RT-091_',
+      '23': 'tts_PeCans-Trooper-23_RC-694_RS-694_RT-1_',
+      '24': 'tts_ButterUdders-Trooper-24_RC-833_RS-694_RT-12_',
+      '25': 'tts_PaPairmint-Hypnotits-25_RC-694_RS-764_RT-091_',
+      '26': 'tts_CherryBosoms-Trooper-26_RC-625_RS-694_RT-09_',
+      '27': 'tts_BooBerries-Oh Buoys-27_RC-764_RS-833_RT-092_',
+      '28': 'tts_ChocoLattes-Buffies-28_RC-694_RS-625_RT-111_',
+      '29': 'tts_CherryBosoms-Buffies-29_RC-625_RS-625_RT-1_',
+      '30': 'tts_CherryBosoms-Hoots-30_RC-625_RS-833_RT-075_',
+      '31': 'tts_CupCakes-Oh Buoys-31_RC-833_RS-833_RT-1_',
+      '32': 'tts_PeCans-Vintties-32_RC-694_RS-764_RT-091_',
+      '33': 'tts_PaPairmint-HolyMels-33_RC-694_RS-833_RT-083_',
+      '34': 'tts_TataColadas-Buffies-34_RC-764_RS-625_RT-122_',
+      '35': 'tts_CupCakes-Spades-35_RC-833_RS-833_RT-1_',
+      '36': 'tts_CocoNaugthy-HolyMels-36_RC-833_RS-833_RT-1_',
+      '37': 'tts_PeCans-Artemis-37_RC-694_RS-125_RT-056_',
+      '38': 'tts_PeCans-TotalRecalls-38_RC-694_RS-833_RT-083_',
+      '39': 'tts_PaPairmint-Oh Buoys-39_RC-694_RS-833_RT-083_',
+      '40': 'tts_WaterMelons-Shaggies-40_RC-764_RS-694_RT-11_',
+      '41': 'tts_PeCans-HolyMels-41_RC-694_RS-833_RT-083_',
+      '42': 'tts_CocoNaugthy-Vintties-42_RC-833_RS-764_RT-109_',
+      '43': 'tts_WaterMelons-Perkies-43_RC-764_RS-1042_RT-073_',
+      '44': 'tts_WaterMelons-Hypnotits-44_RC-764_RS-764_RT-1_',
+      '45': 'tts_PaPairmint-TotalRecalls-45_RC-694_RS-833_RT-083_',
+      '46': 'tts_GreenTeatea-Trooper-46_RC-139_RS-694_RT-02_',
+      '47': 'tts_ChocoLattes-Artemis-47_RC-694_RS-125_RT-056_',
+      '48': 'tts_ButterUdders-Artemis-48_RC-833_RS-125_RT-067_',
+      '49': 'tts_WaterMelons-Artemis-49_RC-764_RS-125_RT-061_',
+      '50': 'tts_GreenTeatea-Artemis-50_RC-139_RS-125_RT-011_',
+      '51': 'tts_ChocoLattes-Perkies-51_RC-694_RS-1042_RT-067_',
+      '52': 'tts_ButterUdders-Buffies-52_RC-833_RS-625_RT-133_',
+      '53': 'tts_GreenFairies-Artemis-53_RC-069_RS-125_RT-006_',
+      '54': 'tts_CherryBosoms-Perkies-54_RC-625_RS-1042_RT-06_',
+      '55': 'tts_RackBerries-Buffies-55_RC-278_RS-625_RT-044_',
+      '56': 'tts_LimeJellies-Perkies-56_RC-139_RS-1042_RT-013_',
+      '57': 'tts_PassionFronts-Artemis-57_RC-069_RS-125_RT-006_',
+      '58': 'tts_BrasBerries-Artemis-58_RC-139_RS-125_RT-011_',
+      '59': 'tts_BrasBerries-Perkies-59_RC-139_RS-1042_RT-013_',
+      '60': 'tts_ChocoLattes-Trooper-60_RC-694_RS-694_RT-1_',
+      '61': 'tts_RackBerries-Artemis-61_RC-278_RS-125_RT-022_',
+      '62': 'tts_RackBerries-Perkies-62_RC-278_RS-1042_RT-027_',
+      '63': 'tts_LimeJellies-Artemis-63_RC-139_RS-125_RT-011_',
+      '64': 'tts_RackBerries-Shaggies-64_RC-278_RS-694_RT-04_',
+      '65': 'tts_CherryBosoms-Shaggies-65_RC-625_RS-694_RT-09_',
+      '66': 'tts_PurpleHush-Perkies-66_RC-694_RS-1042_RT-067_',
+      '67': 'tts_StarBust-Oh Buoys-67_RC-833_RS-833_RT-1_',
+      '68': 'tts_WaterMelons-HolyMels-68_RC-764_RS-833_RT-092_',
+      '69': 'tts_TataColadas-Vintties-69_RC-764_RS-764_RT-1_',
+      '70': 'tts_WaterMelons-Vintties-70_RC-764_RS-764_RT-1_',
+      '71': 'tts_ButterUdders-Hoots-71_RC-833_RS-833_RT-1_',
+      '72': 'tts_BooBerries-Trooper-72_RC-764_RS-694_RT-11_',
+      '73': 'tts_ButterUdders-Spades-73_RC-833_RS-833_RT-1_',
+      '74': 'tts_ButterUdders-Shaggies-74_RC-833_RS-694_RT-12_',
+      '75': 'tts_ChocoLattes-Hypnotits-75_RC-694_RS-764_RT-091_',
+      '76': 'tts_TataColadas-Spades-76_RC-764_RS-833_RT-092_',
+      '77': 'tts_TataColadas-Hypnotits-77_RC-764_RS-764_RT-1_',
+      '78': 'tts_StarBust-Perkies-78_RC-833_RS-1042_RT-08_',
+      '79': 'tts_WaterMelons-Trooper-79_RC-764_RS-694_RT-11_',
+      '80': 'tts_TataColadas-HolyMels-80_RC-764_RS-833_RT-092_',
+      '81': 'tts_TataColadas-TotalRecalls-81_RC-764_RS-833_RT-092_',
+      '82': 'tts_TataColadas-Shaggies-82_RC-764_RS-694_RT-11_',
+      '83': 'tts_StarBust-Trooper-83_RC-833_RS-694_RT-12_',
+      '84': 'tts_PurpleHush-Hypnotits-84_RC-694_RS-764_RT-091_',
+      '85': 'tts_BooBerries-Hypnotits-85_RC-764_RS-764_RT-1_',
+      '86': 'tts_PaPairmint-Artemis-86_RC-694_RS-125_RT-056_',
+      '87': 'tts_StarBust-Buffies-87_RC-833_RS-625_RT-133_',
+      '88': 'tts_PurpleHush-Artemis-88_RC-694_RS-125_RT-056_',
+      '89': 'tts_TataColadas-Perkies-89_RC-764_RS-1042_RT-073_',
+      '90': 'tts_BooBerries-Perkies-90_RC-764_RS-1042_RT-073_',
+      '91': 'tts_CocoNaugthy-Hoots-91_RC-833_RS-833_RT-1_',
+      '92': 'tts_CupCakes-HolyMels-92_RC-833_RS-833_RT-1_',
+      '93': 'tts_CherryBosoms-HolyMels-93_RC-625_RS-833_RT-075_',
+      '94': 'tts_ChocoLattes-TotalRecalls-94_RC-694_RS-833_RT-083_',
+      '95': 'tts_PaPairmint-Vintties-95_RC-694_RS-764_RT-091_',
+      '96': 'tts_TataColadas-Artemis-96_RC-764_RS-125_RT-061_',
+      '97': 'tts_BooBerries-Artemis-97_RC-764_RS-125_RT-061_',
+      '98': 'tts_CupCakes-Buffies-98_RC-833_RS-625_RT-133_',
+      '99': 'tts_ChocoLattes-HolyMels-99_RC-694_RS-833_RT-083_',
+      '100': 'tts_CupCakes-Hoots-100_RC-833_RS-833_RT-1_',
+      '101': 'tts_TataColadas-Hoots-101_RC-764_RS-833_RT-092_',
+      '102': 'tts_BooBerries-Shaggies-102_RC-764_RS-694_RT-11_',
+      '103': 'tts_CupCakes-Hypnotits-103_RC-833_RS-764_RT-109_',
+      '104': 'tts_ChocoLattes-Hoots-104_RC-694_RS-833_RT-083_',
+      '105': 'tts_PurpleHush-Oh Buoys-105_RC-694_RS-833_RT-083_',
+      '106': 'tts_PaPairmint-Hoots-106_RC-694_RS-833_RT-083_',
+      '107': 'tts_StarBust-TotalRecalls-107_RC-833_RS-833_RT-1_',
+      '108': 'tts_PurpleHush-HolyMels-108_RC-694_RS-833_RT-083_',
+      '109': 'tts_ButterUdders-Vintties-109_RC-833_RS-764_RT-109_',
+      '110': 'tts_PaPairmint-Spades-110_RC-694_RS-833_RT-083_',
+      '111': 'tts_ButterUdders-HolyMels-111_RC-833_RS-833_RT-1_',
+      '112': 'tts_CupCakes-Vintties-112_RC-833_RS-764_RT-109_',
+      '113': 'tts_PurpleHush-Shaggies-113_RC-694_RS-694_RT-1_',
+      '114': 'tts_PaPairmint-Buffies-114_RC-694_RS-625_RT-111_',
+      '115': 'tts_PurpleHush-Vintties-115_RC-694_RS-764_RT-091_',
+      '116': 'tts_StarBust-Vintties-116_RC-833_RS-764_RT-109_',
+      '117': 'tts_PeCans-Hoots-117_RC-694_RS-833_RT-083_',
+      '118': 'tts_PaPairmint-Perkies-118_RC-694_RS-1042_RT-067_',
+      '119': 'tts_PeCans-Spades-119_RC-694_RS-833_RT-083_',
+      '120': 'tts_BooBerries-HolyMels-120_RC-764_RS-833_RT-092_',
+      '121': 'tts_CupCakes-Shaggies-121_RC-833_RS-694_RT-12_',
+      '122': 'tts_CupCakes-Perkies-122_RC-833_RS-1042_RT-08_',
+      '123': 'tts_WaterMelons-Hoots-123_RC-764_RS-833_RT-092_',
+      '124': 'tts_BooBerries-TotalRecalls-124_RC-764_RS-833_RT-092_',
+      '125': 'tts_BooBerries-Spades-125_RC-764_RS-833_RT-092_',
+      '126': 'tts_CocoNaugthy-Hypnotits-126_RC-833_RS-764_RT-109_',
+      '127': 'tts_CupCakes-Trooper-127_RC-833_RS-694_RT-12_',
+      '128': 'tts_StarBust-Spades-128_RC-833_RS-833_RT-1_',
+      '129': 'tts_PurpleHush-TotalRecalls-129_RC-694_RS-833_RT-083_',
+      '130': 'tts_CupCakes-TotalRecalls-130_RC-833_RS-833_RT-1_',
+      '131': 'tts_WaterMelons-TotalRecalls-131_RC-764_RS-833_RT-092_',
+      '132': 'tts_StarBust-Hypnotits-132_RC-833_RS-764_RT-109_',
+      '133': 'tts_WaterMelons-Spades-133_RC-764_RS-833_RT-092_',
+      '134': 'tts_PeCans-Perkies-134_RC-694_RS-1042_RT-067_',
+      '135': 'tts_BooBerries-Vintties-135_RC-764_RS-764_RT-1_',
+      '136': 'tts_PurpleHush-Spades-136_RC-694_RS-833_RT-083_',
+      '137': 'tts_CocoNaugthy-Perkies-137_RC-833_RS-1042_RT-08_',
+      '138': 'tts_ChocoLattes-Vintties-138_RC-694_RS-764_RT-091_',
+      '139': 'tts_StarBust-HolyMels-139_RC-833_RS-833_RT-1_',
+      '140': 'tts_StarBust-Artemis-140_RC-833_RS-125_RT-067_',
+      '141': 'tts_PurpleHush-Hoots-141_RC-694_RS-833_RT-083_',
+      '142': 'tts_StarBust-Shaggies-142_RC-833_RS-694_RT-12_',
+      '143': 'tts_WaterMelons-Oh Buoys-143_RC-764_RS-833_RT-092_',
+      '144': 'tts_CherryBosoms-TotalRecalls-144_RC-625_RS-833_RT-075_'
+    };
   
-    for (var key in mapping) {
-      if (mapping.hasOwnProperty(key)) {
-        var newKey = key.replace(/_\{RC:[\d.]+,RS:[\d.]+,RT:[\d.]+\}/, "_");
-        if (newKey !== key) {
-          mapping[newKey] = mapping[key];
-          delete mapping[key];
-        }
-      }
+    /* for (var oldKey in mapping) {
+        var newValue = changeKeys(oldKey);
+        var newKey = newKeys(newValue);
+        newMapping[newKey] = newValue;
     }
+ */
+    var doc = app.activeDocument;
+    var symbols = doc.symbols;
+
+    for (var i = 0; i < symbols.length; i++) {
+        var symbol = symbols[i];
+        var symbolName = symbol.name;
+        var symbolNumber = getSymbolNumber(symbolName);
+        var newSymbolName = newMapping[symbolNumber];
+        if (newSymbolName) {
+            symbol.name = newSymbolName;
+        }
+    }
+
   
     
-    return mapping;
+    return newMapping;
+  }
+
+  function changeKeys(str) {
+    
+    var regex = /(\d+)_{(.*?)}/;
+
+    var match = str.match(regex);
+    var num = match[1];
+    var values = match[2].split(",");
+
+    var result = str.replace(regex, num + "_");
+    for (var i = 0; i < values.length; i++) {
+      var keyVal = values[i].split(":");
+      var key = keyVal[0];
+      var val = keyVal[1].replace(".", "");
+      result += key + "-" + val + "_";
+    }
+
+    return result;
+  }
+
+  function newKeys(str) {
+    var regex = /(\d+)/;
+    var key = regex.exec(str)[0];
+    
+    return key;
+  }
+
+  function getSymbolNumber(symbolName) {
+    var regex = /(\d+)/;
+    var match = symbolName.match(regex);
+    var number = match[1];
+    return number;
+
   }
   
   var cleanedMapping = cleanMapping();
