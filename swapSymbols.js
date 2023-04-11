@@ -17,7 +17,7 @@ function sartProcess() {
   var currentItemGenerated = 0;
   for (var i = 0; i < numberOfHotties; i++) {
     swapSymbols();
-    //saveImage('hottie_' + currentItemGenerated);
+    saveImage('hottie_' + currentItemGenerated);
     currentItemGenerated++;
   }
 }
