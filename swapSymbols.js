@@ -30,18 +30,18 @@ function swapSymbols() {
   for (var i = 0; i < layers.length; i++) {
     // Get the sublayers in the current layer
     var layerName = layers[i].name;
-    log("Layer: " + extractRarityValue(layerName));
+    
     if (layerName.indexOf(includeLayers) > -1) {
       ttsLayers.push(layers[i]);
     }
   }
 
-  /* if (ttsLayers.length > 0) {
+  if (ttsLayers.length > 0) {
 
     for (var i = 0; i < ttsLayers.length; i++) {
       swapLayerSymbols(ttsLayers[i]);
     }
-  } */
+  }
 
 
 }
@@ -53,6 +53,7 @@ function swapLayerSymbols(layer) {
 
     // Iterate over each sublayer
     for (var j = 0; j < sublayers.length; j++) {
+      log("Symbol: " + extractRarityValue(sublayers[j].name));
       // Get the symbol in the current sublayer
       log("Layer: " + layer.name + " Sublayer: " + sublayers[j].name);
       var symbol = sublayers[j];
@@ -121,18 +122,16 @@ function saveImage(docName) {
   
 }
 
-function extractRarityValue(layerName)
+function extractRarityValue(symbol)
 {
     
-    var data = layerName.split("_");
-    log("Name: " + layerName);
+    var data = symbol.split("_");
+    log("Name: " + symbol);
 
     
     if (data.length == 6) {
-      alert(data.length);
       var layerRarity = data[5].split("-");
-      log("Data: " + layerRarity[2]);
-      return layerRarity;
+      return layerRarity[1];
     } else {
       return '';
     }
