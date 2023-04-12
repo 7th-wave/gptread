@@ -4,7 +4,7 @@ var doc = app.activeDocument;
 var layers = doc.layers;
 var tts = 'tts_';
 var includeLayers = '#';
-var logos = 'logos_';
+var logos = 'ttlogo_';
 log("Start!");
 log("Layer Size: " + layers.length);
 var ttsLayers = [];
@@ -116,7 +116,7 @@ function saveCopyToPath() {
 
   var saveOptions = new IllustratorSaveOptions();
   saveOptions.compatibility = Compatibility.ILLUSTRATOR17;
-  saveOptions.pdfCompatible = true;
+  saveOptions.pdfCompatible = false;
   saveOptions.compressed = true;
 
   doc.saveAs(destFile, saveOptions);
