@@ -103,7 +103,7 @@ function saveImage(docName) {
       var imgFile = new File(Folder.desktop + "/" + docName + "_" + artboardName + '.png');
       options.artBoardClipping = true;
       options.resolution = 300;
-      options.antiAliasing = true;
+      options.antiAliasing = false;
       options.transparency = false;
       options.PDFCompatible = false;
       try {
