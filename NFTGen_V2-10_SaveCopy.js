@@ -4,7 +4,7 @@ var doc = app.activeDocument;
 var layers = doc.layers;
 var numberOfHotties = 2;
 var tts = 'tts_';
-var tittyLayers = '#tts_';
+var tittyLayers = '#';
 var logos = 'ttlogo_';
 var logoLayer = '#ttlogo_';
 log("Start!");
@@ -14,8 +14,8 @@ var otherLayers = [];
 var pathToSaveCollection = '';
 var folderName = "Hotties"; // Replace this with the desired folder name
 var selectedFolder;
-var rarityScoreCache = {};
-var ttsSymbols = [];
+var rarityScoreCache, ttsSymbols, symbolsLayers;
+
 
 function startProcess() {
   var currentItemGenerated = 0;
@@ -33,10 +33,16 @@ function startProcess() {
   }*/
 
   log("numberOfHotties: " + numberOfHotties + "");
+  log("-- currentItemGenerated: " + currentItemGenerated + "--");
 
   for (var i = 0; i < numberOfHotties; i++) {
+    rarityScoreCache = {};
+    ttsSymbols = [];
+    symbolsLayers = 0;
     genRarityScores();
     swapSymbols();
+    log("------------------------");
+    log("Symbols layers: " + symbolsLayers);
     //saveCopyToPath();
     currentItemGenerated++;
   }
@@ -51,25 +57,6 @@ function createFolder(folderPath, folderName) {
   } else {
     log("Folder already exists at: " + newFolder.fsName);
   }
-}
-
-function swapLogos() {
-  // Get active document
-  var doc = app.activeDocument;
-
-  // Get all layers in the document
-  var layers = doc.layers;
-
-  // Iterate over each layer in the document
-  for (var i = 0; i < layers.length; i++) {
-    // Get the sublayers in the current layer
-    var layerName = layers[i].name;
-    
-    if (layerName.indexOf(logos) > -1) {
-      swapLayerLogos(layers[i]);
-    }
-  }
-
 }
 
 function swapSymbols() {
@@ -98,13 +85,12 @@ function swapSymbols() {
 
 function swapLayerSymbols(layer) {
   var doc = app.activeDocument;
-
-  genRarityScores();
-
+  
   var sublayers = layer.symbolItems;
 
     // Iterate over each sublayer
     for (var j = 0; j < sublayers.length; j++) {
+      symbolsLayers++;
       // Get the symbol in the current sublayer
       log("Layer: " + layer.name + " Sublayer: " + sublayers[j].symbol);
       var symbol = sublayers[j].symbol;
