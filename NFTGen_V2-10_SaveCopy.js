@@ -4,8 +4,9 @@ var doc = app.activeDocument;
 var layers = doc.layers;
 var numberOfHotties = 2;
 var tts = 'tts_';
-var includeLayers = '#';
-var logos = 'logos_';
+var tittyLayers = '#tts_';
+var logos = 'ttlogo_';
+var logoLayer = '#ttlogo_';
 log("Start!");
 log("Layer Size: " + layers.length);
 var ttsLayers = [];
@@ -13,11 +14,13 @@ var otherLayers = [];
 var pathToSaveCollection = '';
 var folderName = "Hotties"; // Replace this with the desired folder name
 var selectedFolder;
+var rarityScoreCache = {};
+var ttsSymbols = [];
 
 function startProcess() {
   var currentItemGenerated = 0;
 
-  selectedFolder = Folder.selectDialog("Choose a folder:");
+  /*selectedFolder = Folder.selectDialog("Choose a folder:");
 
   if (selectedFolder !== null) {
       // Define the folder name
@@ -27,13 +30,14 @@ function startProcess() {
       createFolder(selectedFolder, folderName);
   } else {
     log("No folder selected.");
-  }
+  }*/
 
   log("numberOfHotties: " + numberOfHotties + "");
 
   for (var i = 0; i < numberOfHotties; i++) {
+    genRarityScores();
     swapSymbols();
-    saveCopyToPath();
+    //saveCopyToPath();
     currentItemGenerated++;
   }
 }
@@ -49,6 +53,25 @@ function createFolder(folderPath, folderName) {
   }
 }
 
+function swapLogos() {
+  // Get active document
+  var doc = app.activeDocument;
+
+  // Get all layers in the document
+  var layers = doc.layers;
+
+  // Iterate over each layer in the document
+  for (var i = 0; i < layers.length; i++) {
+    // Get the sublayers in the current layer
+    var layerName = layers[i].name;
+    
+    if (layerName.indexOf(logos) > -1) {
+      swapLayerLogos(layers[i]);
+    }
+  }
+
+}
+
 function swapSymbols() {
   // Get active document
  
@@ -58,7 +81,7 @@ function swapSymbols() {
     // Get the sublayers in the current layer
     var layerName = layers[i].name;
     
-    if (layerName.indexOf(includeLayers) > -1) {
+    if (layerName.indexOf(tittyLayers) > -1) {
       ttsLayers.push(layers[i]);
     }
   }
@@ -76,34 +99,16 @@ function swapSymbols() {
 function swapLayerSymbols(layer) {
   var doc = app.activeDocument;
 
+  genRarityScores();
+
   var sublayers = layer.symbolItems;
 
     // Iterate over each sublayer
     for (var j = 0; j < sublayers.length; j++) {
-      log("Symbol: " + extractRarityValue(sublayers[j].name));
       // Get the symbol in the current sublayer
-      log("Layer: " + layer.name + " Sublayer: " + sublayers[j].name);
+      log("Layer: " + layer.name + " Sublayer: " + sublayers[j].symbol);
       var symbol = sublayers[j].symbol;
-
-      // Get all symbols from the document
-      var symbols = doc.symbols;
-
-      // Filter symbols to only include those with tts in their name
-      var ttsSymbols = [];
-
-      // Loop through the symbols and add the ones containing 'tts' in their names to the ttsSymbols array
-      for (var i = 0; i < symbols.length; i++) {
-          if (symbols[i].name.indexOf('tts') !== -1) {
-              ttsSymbols.push(symbols[i]);
-          }
-      }
-
-      // Sort symbols by rarity score in ascending order
-      ttsSymbols.sort(function(sym1, sym2) {
-        var sym1Score = extractRarityValue(sym1.name);
-        var sym2Score = extractRarityValue(sym2.name);
-        return sym1Score - sym2Score;
-      });
+      
 
       // Get the index of the current symbol
       var currentIndex = -1;
@@ -118,17 +123,47 @@ function swapLayerSymbols(layer) {
       var rarityScore = extractRarityValue(symbol.name);
       var numberOfSwaps = Math.ceil(1 / rarityScore);
 
-      log("Number of swaps: " + numberOfSwaps);
+      log("Current index" + currentIndex + "Number of swaps: " + numberOfSwaps + " Rarity Score: " + rarityScore + " Symbol: " + symbol.name); 
 
       // Swap the symbol with the next symbol in the list
       for (var k = 0; k < numberOfSwaps; k++) {
         var nextIndex = (currentIndex + 1) % ttsSymbols.length;
         var nextSymbol = ttsSymbols[nextIndex];
+        log("Tts length: " + ttsSymbols.length);
+        log("Next index: " + nextIndex);
+        log("Next symbol: " + nextSymbol);
+        log("Next symbol name: " + (nextSymbol ? nextSymbol.name : "undefined"));
+
         sublayers[j].symbol = nextSymbol;
         sublayers[j].name = nextSymbol.name;
         currentIndex = nextIndex;
       }
     }
+}
+
+function genRarityScores() {
+  var doc = app.activeDocument;
+
+  var symbols = doc.symbols;
+
+    // Loop through the symbols and add the ones containing 'tts' in their names to the ttsSymbols array
+    for (var i = 0; i < symbols.length; i++) {
+        if (symbols[i].name.indexOf('tts') !== -1) {
+            ttsSymbols.push(symbols[i]);
+
+            //cache rarity score
+            rarityScoreCache[symbols[i].name] = extractRarityValue(symbols[i].name);
+
+        }
+    }
+
+    // Sort symbols by rarity score in ascending order
+    ttsSymbols.sort(function(sym1, sym2) {
+        var sym1Score = rarityScoreCache[sym1.name];
+        var sym2Score = rarityScoreCache[sym2.name];
+        return sym1Score - sym2Score;
+    });
+
 }
 
 
@@ -166,8 +201,6 @@ function extractRarityValue(symbol)
 {
     
     var data = symbol.split("_");
-    log("Name: " + symbol);
-
     
     if (data.length == 6) {
       var layerRarity = data[5].split("-");
