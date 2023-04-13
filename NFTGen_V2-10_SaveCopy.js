@@ -190,7 +190,7 @@ function saveCopyToPath(currentItemGenerated) {
   }
 
   var doc = app.activeDocument;
-  var fileName = doc.name.replace(/\.[^.]*$/, "");
+  var fileName = 'hottie';
 
   var destFile = new File(selectedFolder + "/" + folderName + "/" + fileName + "_" + currentItemGenerated + ".ai");
 
