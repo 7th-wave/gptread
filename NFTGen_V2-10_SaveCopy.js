@@ -54,7 +54,7 @@ function startProcess() {
 
     log("------------------------");
     log("Symbols layers: " + symbolsLayers);
-    //saveCopyToPath();
+    saveCopyToPath(currentItemGenerated);
     currentItemGenerated++;
   }
 }
@@ -172,7 +172,7 @@ function log(message) {
 }
 
 
-function saveCopyToPath() {
+function saveCopyToPath(currentItemGenerated) {
   if (app.documents.length === 0) {
       alert("Please open a document before running the script.");
       return;
@@ -181,12 +181,9 @@ function saveCopyToPath() {
   var doc = app.activeDocument;
   var fileName = doc.name.replace(/\.[^.]*$/, "");
 
-  if (outputPath === null) return;
-
-  var destFile = new File(selectedFolder + "/" + folderName + "/" + fileName + "_copy.ai");
+  var destFile = new File(selectedFolder + "/" + folderName + "/" + fileName + "_" + currentItemGenerated + ".ai");
 
   var saveOptions = new IllustratorSaveOptions();
-  saveOptions.compatibility = Compatibility.ILLUSTRATOR2007;
   saveOptions.pdfCompatible = true;
   saveOptions.compressed = true;
 
