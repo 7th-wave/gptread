@@ -174,8 +174,8 @@ function log(message) {
 
 function runAction() {
   // Replace these values with the names of your action and action set
-  var actionName = "HootiesExportPNGV2";
-  var actionSetName = "HootiesExportPNG";
+  var actionName = "HootExpPNG";
+  var actionSetName = "HootExpPNG";
 
   // Execute the action
   app.doScript(actionName, actionSetName);
