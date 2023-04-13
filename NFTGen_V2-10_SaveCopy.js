@@ -55,7 +55,7 @@ function startProcess() {
     log("------------------------");
     log("Symbols layers: " + symbolsLayers);
     //saveCopyToPath(currentItemGenerated);
-    HootiesExportPNG();
+    runAction();
     currentItemGenerated++;
   }
 }
