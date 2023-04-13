@@ -14,8 +14,7 @@ var otherLayers = [];
 var pathToSaveCollection = '';
 var folderName = "Hooties"; // Replace this with the desired folder name
 var selectedFolder;
-var rarityScoreCache, ttsSymbols, symbolsLayers;
-
+var rarityScoreCache, ttsSymbols, symbolsLayers, logoLayers, logoRarityScoreCache, logoSymbols;
 
 function startProcess() {
   var currentItemGenerated = 0;
@@ -36,11 +35,23 @@ function startProcess() {
   log("-- currentItemGenerated: " + currentItemGenerated + "--");
 
   for (var i = 0; i < numberOfHotties; i++) {
-    rarityScoreCache = {};
-    ttsSymbols = [];
+    ttsLayers = [];
+    logoLayers = [];
     symbolsLayers = 0;
-    genRarityScores();
-    swapSymbols();
+
+    var genRarity = genRarityScores(tts, 5);
+    rarityScoreCache = genRarity.cache;
+    ttsSymbols = genRarity.symbols;
+    swapSymbols(ttsSymbols, tittyLayers);
+
+    log("---swaplogos");
+
+    var logoGenRarity = genRarityScores(logos, 2);
+    logoRarityScoreCache = logoGenRarity.cache;
+    logoSymbols = logoGenRarity.symbols;
+    swapSymbols(logoSymbols, logoLayer);
+
+
     log("------------------------");
     log("Symbols layers: " + symbolsLayers);
     //saveCopyToPath();
@@ -59,38 +70,42 @@ function createFolder(folderPath, folderName) {
   }
 }
 
-function swapSymbols() {
+function swapSymbols(symbols, layerPrefix) {
   // Get active document
- 
+  var selectedLayers = [];
+  log("Prefix: " + layerPrefix);
 
   // Iterate over each layer in the document
   for (var i = 0; i < layers.length; i++) {
     // Get the sublayers in the current layer
     var layerName = layers[i].name;
     
-    if (layerName.indexOf(tittyLayers) > -1) {
-      ttsLayers.push(layers[i]);
+    if (layerName.indexOf(layerPrefix) > -1) {
+      selectedLayers.push(layers[i]);
     }
   }
 
-  if (ttsLayers.length > 0) {
+  if (layers.length > 0) {
+    symbolsLayers = 0;
 
-    for (var i = 0; i < ttsLayers.length; i++) {
-      swapLayerSymbols(ttsLayers[i]);
+    for (var i = 0; i < selectedLayers.length; i++) {
+      swapLayerSymbols(selectedLayers[i], symbols);
     }
   }
 
 
 }
 
-function swapLayerSymbols(layer) {
-  var doc = app.activeDocument;
-  
-  var sublayers = layer.symbolItems;
 
+
+function swapLayerSymbols(layer, symbols) {
+
+  var sublayers = layer.symbolItems;
+  log("Layer: " + layer.name + " Sublayers: " + sublayers.length);
+  symbolsLayers += sublayers.length;
     // Iterate over each sublayer
     for (var j = 0; j < sublayers.length; j++) {
-      symbolsLayers++;
+      
       // Get the symbol in the current sublayer
       log("Layer: " + layer.name + " Sublayer: " + sublayers[j].symbol);
       var symbol = sublayers[j].symbol;
@@ -98,57 +113,52 @@ function swapLayerSymbols(layer) {
 
       // Get the index of the current symbol
       var currentIndex = -1;
-      for (var i = 0; i < ttsSymbols.length; i++) {
-          if (ttsSymbols[i] === symbol) {
+      for (var i = 0; i < symbols.length; i++) {
+          if (symbols[i] === symbol) {
               currentIndex = i;
               break;
           }
       }
 
-      // Determine the number of times the current symbol should be swapped
-      var rarityScore = extractRarityValue(symbol.name);
-      var numberOfSwaps = Math.ceil(1 / rarityScore);
+      log("Current index" + currentIndex + " - Symbol: " + symbol.name); 
 
-      log("Current index" + currentIndex + "Number of swaps: " + numberOfSwaps + " Rarity Score: " + rarityScore + " Symbol: " + symbol.name); 
+      var nextIndex = (currentIndex + 1) % symbols.length;
+      var nextSymbol = symbols[nextIndex];
+      log("Tts length: " + symbols.length);
+      log("Next index: " + nextIndex);
+      log("Next symbol: " + nextSymbol);
+      log("Next symbol name: " + (nextSymbol ? nextSymbol.name : "undefined"));
 
-      // Swap the symbol with the next symbol in the list
-      for (var k = 0; k < numberOfSwaps; k++) {
-        var nextIndex = (currentIndex + 1) % ttsSymbols.length;
-        var nextSymbol = ttsSymbols[nextIndex];
-        log("Tts length: " + ttsSymbols.length);
-        log("Next index: " + nextIndex);
-        log("Next symbol: " + nextSymbol);
-        log("Next symbol name: " + (nextSymbol ? nextSymbol.name : "undefined"));
-
-        sublayers[j].symbol = nextSymbol;
-        sublayers[j].name = nextSymbol.name;
-        currentIndex = nextIndex;
-      }
+      sublayers[j].symbol = nextSymbol;
+      sublayers[j].name = nextSymbol.name;
+      currentIndex = nextIndex;
     }
 }
 
-function genRarityScores() {
-  var doc = app.activeDocument;
+function genRarityScores(prefix, index) {
 
   var symbols = doc.symbols;
+  var layers = [];
+  var cache = {};
 
-    // Loop through the symbols and add the ones containing 'tts' in their names to the ttsSymbols array
     for (var i = 0; i < symbols.length; i++) {
-        if (symbols[i].name.indexOf('tts') !== -1) {
-            ttsSymbols.push(symbols[i]);
+        if (symbols[i].name.indexOf(prefix) !== -1) {
+            layers.push(symbols[i]);
 
             //cache rarity score
-            rarityScoreCache[symbols[i].name] = extractRarityValue(symbols[i].name);
+            cache[symbols[i].name] = extractRarityValue(symbols[i].name, index);
 
         }
     }
 
     // Sort symbols by rarity score in ascending order
-    ttsSymbols.sort(function(sym1, sym2) {
-        var sym1Score = rarityScoreCache[sym1.name];
-        var sym2Score = rarityScoreCache[sym2.name];
+    layers.sort(function(sym1, sym2) {
+        var sym1Score = cache[sym1.name];
+        var sym2Score = cache[sym2.name];
         return sym1Score - sym2Score;
     });
+
+    return { cache: cache, symbols: layers }
 
 }
 
@@ -183,13 +193,13 @@ function saveCopyToPath() {
   doc.saveAs(destFile, saveOptions);
 }
 
-function extractRarityValue(symbol)
+function extractRarityValue(symbol, index)
 {
     
     var data = symbol.split("_");
     
     if (data.length == 6) {
-      var layerRarity = data[5].split("-");
+      var layerRarity = data[index].split("-");
       return layerRarity[1];
     } else {
       return '';
