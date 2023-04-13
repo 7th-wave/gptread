@@ -19,7 +19,7 @@ var rarityScoreCache, ttsSymbols, symbolsLayers, logoLayers, logoRarityScoreCach
 function startProcess() {
   var currentItemGenerated = 0;
 
-  selectedFolder = Folder.selectDialog("Choose a folder:");
+  /* selectedFolder = Folder.selectDialog("Choose a folder:");
 
   if (selectedFolder !== null) {
       // Define the folder name
@@ -29,7 +29,7 @@ function startProcess() {
       createFolder(selectedFolder, folderName);
   } else {
     log("No folder selected.");
-  }
+  } */
 
   log("numberOfHotties: " + numberOfHotties + "");
   log("-- currentItemGenerated: " + currentItemGenerated + "--");
@@ -54,7 +54,7 @@ function startProcess() {
 
     log("------------------------");
     log("Symbols layers: " + symbolsLayers);
-    saveCopyToPath(currentItemGenerated);
+    //saveCopyToPath(currentItemGenerated);
     runAction();
     currentItemGenerated++;
   }
