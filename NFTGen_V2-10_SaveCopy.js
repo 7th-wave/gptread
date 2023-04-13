@@ -54,7 +54,7 @@ function startProcess() {
 
     log("------------------------");
     log("Symbols layers: " + symbolsLayers);
-    //saveCopyToPath(currentItemGenerated);
+    saveCopyToPath(currentItemGenerated);
     runAction();
     currentItemGenerated++;
   }
