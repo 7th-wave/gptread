@@ -174,7 +174,7 @@ function log(message) {
 
 function runAction() {
   // Replace these values with the names of your action and action set
-  var actionName = "HootiesExportPNG";
+  var actionName = "HootiesExportPNGV2";
   var actionSetName = "HootiesExportPNG";
 
   // Execute the action
@@ -195,7 +195,7 @@ function saveCopyToPath(currentItemGenerated) {
   var destFile = new File(selectedFolder + "/" + folderName + "/" + fileName + "_" + currentItemGenerated + ".ai");
 
   var saveOptions = new IllustratorSaveOptions();
-  saveOptions.pdfCompatible = true;
+  saveOptions.pdfCompatible = false;
   saveOptions.compressed = true;
 
   doc.saveAs(destFile, saveOptions);
