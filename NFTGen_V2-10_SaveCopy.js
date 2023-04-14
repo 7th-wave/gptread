@@ -17,7 +17,7 @@ var selectedFolder;
 var rarityScoreCache, ttsSymbols, symbolsLayers, logoLayers, logoRarityScoreCache, logoSymbols;
 
 function startProcess() {
-  var currentItemGenerated = 0;
+  var currentItemGenerated = 1;
 
   selectedFolder = Folder.selectDialog("Choose a folder:");
 
