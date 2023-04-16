@@ -2,7 +2,7 @@ var doc = app.activeDocument;
 
 // Get all layers in the document
 var layers = doc.layers;
-var numberOfHotties = 2;
+var numberOfHotties = 20;
 var tts = 'tts_';
 var tittyLayers = '#tts_';
 var logos = 'ttlogo_';
@@ -15,9 +15,75 @@ var pathToSaveCollection = '';
 var folderName = "Hotties"; // Replace this with the desired folder name
 var selectedFolder;
 var rarityScoreCache, ttsSymbols, symbolsLayers, logoLayers, logoRarityScoreCache, logoSymbols;
+var serialNumbers = [];
+var layerName = "qrs_Hood";
+var qrlayer = doc.layers.getByName(layerName);
+
+var downloadsFolder;
+
+function getSerials() {
+  var serials = [];
+  var serialsFile = File.openDialog("Select the serial numbers file:");
+  if (serialsFile !== null) {
+    serialsFile.open("r");
+    while (!serialsFile.eof) {
+      var line = serialsFile.readln();
+      serials.push(line);
+    }
+    serialsFile.close();
+    return serials;
+  } else {
+    log("No serials file found.");
+  }
+  
+}
+
+function isValidSVG(svgFile) {
+  try {
+    var xml = new XML(svgFile);
+    // Check if the root element is an 'svg' element
+    return xml.localName() === 'svg';
+  } catch (error) {
+    // Parsing failed, so the SVG file is not valid
+    return false;
+  }
+}
+
+function swapCode(image) {
+  var existingPlacedItem = null;
+  
+  var groupItems = qrlayer.groupItems;
+  log("groupItems: " + groupItems.length);
+  var originalGroup = groupItems[0];
+  var groupPosition = originalGroup.position;
+  var groupWidth = originalGroup.width;
+  var groupHeight = originalGroup.height;
+
+  // Remove the existing group
+  originalGroup.remove();
+
+  // Replace the file path below with the path to your new SVG file
+
+  try {
+      var placedItem = qrlayer.groupItems.createFromFile(image);
+
+      // Set the position, width, and height of the new placed item to match the original group
+      placedItem.position = groupPosition;
+      placedItem.width = groupWidth;
+      placedItem.height = groupHeight;
+  } catch (e) {
+      // Log the error message (optional)
+      log("Not placed QR: " + image.name)
+  }
+  
+  
+}
+
 
 function startProcess() {
   var currentItemGenerated = 1;
+
+  serialNumbers = getSerials();
 
   selectedFolder = Folder.selectDialog("Choose a folder:");
 
@@ -31,10 +97,22 @@ function startProcess() {
     log("No folder selected.");
   }
 
-  log("numberOfHotties: " + numberOfHotties + "");
+  log("numberOfHotties: " + serialNumbers.length + "");
   log("-- currentItemGenerated: " + currentItemGenerated + "--");
+  var downloadsFolder = Folder.selectDialog("Select the Downloads folder:");
 
   for (var i = 0; i < numberOfHotties; i++) {
+    log("serialNumbers[i]: " + serialNumbers[i]);
+    var qrPath = downloadsFolder + '/hootie-'+serialNumbers[i]+'.svg';
+    var qrImage = File(qrPath);
+    qrImage.open("r");
+    var qrContent = qrImage.read();
+    if (qrImage.exists && isValidSVG(qrContent)) {
+      //log("QR: " + qrImage);
+      swapCode(qrImage);
+    } else {
+      log("QR image not found or invalid: " + qrPath);
+    }
     ttsLayers = [];
     logoLayers = [];
     symbolsLayers = 0;
